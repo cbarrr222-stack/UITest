@@ -1,0 +1,88 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:WidgetDashboard.ViewModels"
+             x:Class="WidgetDashboard.Views.WeatherWidget"
+             x:DataType="vm:WeatherViewModel">
+
+  <Border Background="#1E293B" CornerRadius="16" Padding="24" BorderBrush="#334155" BorderThickness="1">
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+
+      <!-- Header -->
+      <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="10" Margin="0,0,0,16">
+        <TextBlock Text="&#x1F30D;" FontSize="22"/>
+        <TextBlock Text="Weather" FontSize="20" FontWeight="Bold" Foreground="#F1F5F9"
+                   VerticalAlignment="Center"/>
+      </StackPanel>
+
+      <!-- Search Bar -->
+      <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Margin="0,0,0,12">
+        <TextBox Grid.Column="0" Watermark="Search city..."
+                 Text="{Binding SearchCity}"
+                 Background="#0F172A" Foreground="#E2E8F0"
+                 CornerRadius="8" Padding="12,8"
+                 BorderBrush="#475569" BorderThickness="1"/>
+        <Button Grid.Column="1" Content="&#x1F50D;" Margin="8,0,0,0"
+                Command="{Binding SearchWeatherCommand}"
+                Background="#3B82F6" Foreground="White"
+                CornerRadius="8" Padding="12,8"
+                FontSize="14"/>
+      </Grid>
+
+      <!-- Weather Display -->
+      <Grid Grid.Row="2" RowDefinitions="Auto,Auto,Auto" Margin="0,8,0,8">
+        <!-- Main temp and icon -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="16">
+          <TextBlock Text="{Binding Icon}" FontSize="64" VerticalAlignment="Center"/>
+          <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="{Binding Temperature}" FontSize="42" FontWeight="Bold" Foreground="#F8FAFC"/>
+            <TextBlock Text="{Binding Condition}" FontSize="16" Foreground="#94A3B8"/>
+          </StackPanel>
+        </StackPanel>
+
+        <!-- Location -->
+        <TextBlock Grid.Row="1" Text="{Binding Location}" FontSize="18" Foreground="#CBD5E1"
+                   HorizontalAlignment="Center" Margin="0,8,0,12" FontWeight="SemiBold"/>
+
+        <!-- Details row -->
+        <Grid Grid.Row="2" ColumnDefinitions="*,*" Margin="0,4">
+          <Border Grid.Column="0" Background="#0F172A" CornerRadius="10" Padding="16,12" Margin="0,0,6,0">
+            <StackPanel HorizontalAlignment="Center">
+              <TextBlock Text="&#x1F4A7; Humidity" FontSize="12" Foreground="#64748B"
+                         HorizontalAlignment="Center"/>
+              <TextBlock Text="{Binding Humidity}" FontSize="20" FontWeight="Bold" Foreground="#38BDF8"
+                         HorizontalAlignment="Center" Margin="0,4,0,0"/>
+            </StackPanel>
+          </Border>
+          <Border Grid.Column="1" Background="#0F172A" CornerRadius="10" Padding="16,12" Margin="6,0,0,0">
+            <StackPanel HorizontalAlignment="Center">
+              <TextBlock Text="&#x1F4A8; Wind" FontSize="12" Foreground="#64748B"
+                         HorizontalAlignment="Center"/>
+              <TextBlock Text="{Binding WindSpeed}" FontSize="20" FontWeight="Bold" Foreground="#34D399"
+                         HorizontalAlignment="Center" Margin="0,4,0,0"/>
+            </StackPanel>
+          </Border>
+        </Grid>
+      </Grid>
+
+      <!-- Quick city buttons -->
+      <WrapPanel Grid.Row="3" Margin="0,8,0,0" HorizontalAlignment="Center">
+        <Button Content="New York" Margin="3" Padding="10,6" FontSize="11"
+                Command="{Binding SelectCityCommand}" CommandParameter="New York"
+                Background="#334155" Foreground="#CBD5E1" CornerRadius="12"/>
+        <Button Content="London" Margin="3" Padding="10,6" FontSize="11"
+                Command="{Binding SelectCityCommand}" CommandParameter="London"
+                Background="#334155" Foreground="#CBD5E1" CornerRadius="12"/>
+        <Button Content="Tokyo" Margin="3" Padding="10,6" FontSize="11"
+                Command="{Binding SelectCityCommand}" CommandParameter="Tokyo"
+                Background="#334155" Foreground="#CBD5E1" CornerRadius="12"/>
+        <Button Content="Paris" Margin="3" Padding="10,6" FontSize="11"
+                Command="{Binding SelectCityCommand}" CommandParameter="Paris"
+                Background="#334155" Foreground="#CBD5E1" CornerRadius="12"/>
+        <Button Content="Sydney" Margin="3" Padding="10,6" FontSize="11"
+                Command="{Binding SelectCityCommand}" CommandParameter="Sydney"
+                Background="#334155" Foreground="#CBD5E1" CornerRadius="12"/>
+      </WrapPanel>
+
+    </Grid>
+  </Border>
+</UserControl>

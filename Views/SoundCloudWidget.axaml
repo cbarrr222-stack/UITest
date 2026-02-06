@@ -1,0 +1,115 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:WidgetDashboard.ViewModels"
+             x:Class="WidgetDashboard.Views.SoundCloudWidget"
+             x:DataType="vm:SoundCloudViewModel">
+
+  <Border Background="#1E293B" CornerRadius="16" Padding="24" BorderBrush="#334155" BorderThickness="1">
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+
+      <!-- Header -->
+      <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="10" Margin="0,0,0,12">
+        <TextBlock Text="&#x1F3B5;" FontSize="22"/>
+        <TextBlock Text="SoundCloud Trending" FontSize="20" FontWeight="Bold" Foreground="#F1F5F9"
+                   VerticalAlignment="Center"/>
+        <Border Background="#FF5500" CornerRadius="6" Padding="8,3" Margin="8,0,0,0"
+                VerticalAlignment="Center">
+          <TextBlock Text="LIVE" FontSize="10" FontWeight="Bold" Foreground="White"/>
+        </Border>
+      </StackPanel>
+
+      <!-- Genre filter -->
+      <WrapPanel Grid.Row="1" Margin="0,0,0,12" HorizontalAlignment="Left">
+        <Button Content="All" Margin="3" Padding="10,5" FontSize="11"
+                Command="{Binding FilterByGenreCommand}" CommandParameter="All"
+                Background="#FF5500" Foreground="White" CornerRadius="12"/>
+        <Button Content="Pop" Margin="3" Padding="10,5" FontSize="11"
+                Command="{Binding FilterByGenreCommand}" CommandParameter="Pop"
+                Background="#334155" Foreground="#CBD5E1" CornerRadius="12"/>
+        <Button Content="Hip Hop" Margin="3" Padding="10,5" FontSize="11"
+                Command="{Binding FilterByGenreCommand}" CommandParameter="Hip Hop"
+                Background="#334155" Foreground="#CBD5E1" CornerRadius="12"/>
+        <Button Content="Electronic" Margin="3" Padding="10,5" FontSize="11"
+                Command="{Binding FilterByGenreCommand}" CommandParameter="Electronic"
+                Background="#334155" Foreground="#CBD5E1" CornerRadius="12"/>
+        <Button Content="Indie" Margin="3" Padding="10,5" FontSize="11"
+                Command="{Binding FilterByGenreCommand}" CommandParameter="Indie"
+                Background="#334155" Foreground="#CBD5E1" CornerRadius="12"/>
+      </WrapPanel>
+
+      <!-- Track list -->
+      <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+        <ItemsControl ItemsSource="{Binding Tracks}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:TrackItemViewModel">
+              <Button Command="{Binding $parent[ItemsControl].((vm:SoundCloudViewModel)DataContext).TogglePlayCommand}"
+                      CommandParameter="{Binding}"
+                      Background="Transparent" Padding="0" Margin="0,2"
+                      HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                      Cursor="Hand">
+                <Border Background="#0F172A" CornerRadius="10" Padding="14,10" Margin="0,2">
+                  <Grid ColumnDefinitions="36,*,Auto,Auto,Auto">
+                    <!-- Rank -->
+                    <TextBlock Grid.Column="0" Text="{Binding Rank, StringFormat='#{0}'}"
+                               FontSize="14" FontWeight="Bold" Foreground="#FF5500"
+                               VerticalAlignment="Center"/>
+
+                    <!-- Track info -->
+                    <StackPanel Grid.Column="1" Margin="8,0">
+                      <TextBlock Text="{Binding Title}" FontSize="14" FontWeight="SemiBold"
+                                 Foreground="#F1F5F9" TextTrimming="CharacterEllipsis"/>
+                      <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding Artist}" FontSize="12" Foreground="#94A3B8"/>
+                        <Border Background="#1E293B" CornerRadius="4" Padding="6,1">
+                          <TextBlock Text="{Binding Genre}" FontSize="10" Foreground="#64748B"/>
+                        </Border>
+                      </StackPanel>
+                    </StackPanel>
+
+                    <!-- Play count -->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4" Margin="8,0"
+                                VerticalAlignment="Center">
+                      <TextBlock Text="&#x25B6;" FontSize="10" Foreground="#94A3B8"
+                                 VerticalAlignment="Center"/>
+                      <TextBlock Text="{Binding PlayCount}" FontSize="12" Foreground="#94A3B8"
+                                 VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Duration -->
+                    <TextBlock Grid.Column="3" Text="{Binding Duration}" FontSize="12"
+                               Foreground="#64748B" VerticalAlignment="Center" Margin="8,0"/>
+
+                    <!-- Play button indicator -->
+                    <Border Grid.Column="4" Width="32" Height="32" CornerRadius="16"
+                            Background="#FF5500"
+                            VerticalAlignment="Center">
+                      <TextBlock Text="&#x25B6;" FontSize="14"
+                                 HorizontalAlignment="Center" VerticalAlignment="Center"
+                                 Foreground="White"/>
+                    </Border>
+                  </Grid>
+                </Border>
+              </Button>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </ScrollViewer>
+
+      <!-- Now playing bar -->
+      <Border Grid.Row="3" Background="#FF5500" CornerRadius="10" Padding="14,10"
+              Margin="0,12,0,0" IsVisible="{Binding SelectedTrack, Converter={x:Static ObjectConverters.IsNotNull}}">
+        <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center">
+          <TextBlock Text="&#x1F50A;" FontSize="16" VerticalAlignment="Center"/>
+          <TextBlock Text="Now Playing:" FontSize="13" Foreground="White" FontWeight="SemiBold"
+                     VerticalAlignment="Center"/>
+          <TextBlock Text="{Binding SelectedTrack.Title}" FontSize="13" Foreground="White"
+                     VerticalAlignment="Center" FontWeight="Bold"/>
+          <TextBlock Text="-" FontSize="13" Foreground="#FFB088" VerticalAlignment="Center"/>
+          <TextBlock Text="{Binding SelectedTrack.Artist}" FontSize="13" Foreground="#FFB088"
+                     VerticalAlignment="Center"/>
+        </StackPanel>
+      </Border>
+
+    </Grid>
+  </Border>
+</UserControl>
