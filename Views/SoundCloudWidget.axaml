@@ -39,10 +39,10 @@
 
       <!-- Track list -->
       <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-        <ItemsControl ItemsSource="{Binding Tracks}">
+        <ItemsControl x:Name="TrackList" ItemsSource="{Binding Tracks}">
           <ItemsControl.ItemTemplate>
             <DataTemplate x:DataType="vm:TrackItemViewModel">
-              <Button Command="{Binding $parent[ItemsControl].((vm:SoundCloudViewModel)DataContext).TogglePlayCommand}"
+              <Button Command="{Binding #TrackList.((vm:SoundCloudViewModel)DataContext).TogglePlayCommand}"
                       CommandParameter="{Binding}"
                       Background="Transparent" Padding="0" Margin="0,2"
                       HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
