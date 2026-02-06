@@ -42,7 +42,7 @@
         <ItemsControl ItemsSource="{Binding Tracks}">
           <ItemsControl.ItemTemplate>
             <DataTemplate x:DataType="vm:TrackItemViewModel">
-              <Button Command="{Binding $parent[ItemsControl].((vm:SoundCloudViewModel)DataContext).TogglePlayCommand}"
+              <Button Command="{ReflectionBinding $parent[ItemsControl].DataContext.TogglePlayCommand}"
                       CommandParameter="{Binding}"
                       Background="Transparent" Padding="0" Margin="0,2"
                       HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
